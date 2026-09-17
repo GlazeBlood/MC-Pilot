@@ -54,4 +54,4 @@ logic, plus a single `@ModifyVariable` in `MouseVirtualMixin` for the virtual po
 
 ## License
 
-MIT — see [`../LICENSE`](../LICENSE).
+GPL-3.0 — see [`../LICENSE`](../LICENSE).

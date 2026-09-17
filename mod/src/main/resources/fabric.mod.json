@@ -7,7 +7,7 @@
   "authors": [
     "MCpilot contributors"
   ],
-  "license": "MIT",
+  "license": "GPL-3.0",
   "environment": "client",
   "entrypoints": {
     "client": [
