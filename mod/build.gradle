@@ -2,7 +2,14 @@ plugins {
     id 'fabric-loom' version '1.13.6'
 }
 
-version = '1.0.0'
+// Version comes from -Pversion=... when the release workflow passes a tag,
+// and falls back to this default for ordinary local builds.
+//
+// Note: check for the *explicit* property rather than project.version, because
+// Gradle pre-populates project.version with the string "unspecified" — a plain
+// ?: fallback would never fire and the jar would be named bare "aipilot.jar".
+def releaseVersion = project.findProperty('releaseVersion')
+version = releaseVersion ? releaseVersion.toString() : '1.0.0'
 group = 'dev.aipilot'
 
 base {

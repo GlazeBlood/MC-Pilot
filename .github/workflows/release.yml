@@ -1,0 +1,77 @@
+name: release
+
+# Publishes a GitHub Release with the built mod jar attached.
+# Trigger it by pushing a version tag, e.g.:
+#   git tag v1.0.0 && git push origin v1.0.0
+# The tag version is injected into the jar, so the artifact always matches the release.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Resolve version from tag
+        id: ver
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          # v1.2.3 -> 1.2.3
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Build the mod
+        working-directory: mod
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build --no-daemon "-PreleaseVersion=${{ steps.ver.outputs.version }}"
+
+      - name: Show what was built
+        run: ls -l mod/build/libs/
+
+      - name: Create the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: MCpilot ${{ steps.ver.outputs.tag }}
+          generate_release_notes: true
+          draft: false
+          files: |
+            mod/build/libs/*.jar
+          body: |
+            ## MCpilot ${{ steps.ver.outputs.tag }}
+
+            Fabric mod for Minecraft **1.20.6** (client) that exposes a loopback HTTP bridge so an
+            AI agent can see the game and inject input.
+
+            ### Install
+            1. Install Minecraft 1.20.6 with **Fabric Loader** (Java 21+).
+            2. Drop the attached `aipilot-*.jar` into that version's `mods/` folder.
+            3. Launch — the log should show
+               `[aipilot] HTTP bridge listening on http://127.0.0.1:8765`.
+
+            The bridge binds to `127.0.0.1` only. See the
+            [README](https://github.com/${{ github.repository }}#readme) for the agent skill and the
+            full API reference.

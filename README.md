@@ -2,6 +2,8 @@
 
 **Let an AI agent see and control your Minecraft client.**
 
+**English** | [中文](README.zh-CN.md)
+
 MCpilot is a small Fabric mod plus an agent skill that together expose a local Minecraft 1.20.6
 client over a loopback HTTP bridge. An AI agent can then take screenshots, read structured game
 state, and inject keyboard/mouse/chat input — so it can actually *play*, *test*, and *verify* the
@@ -61,6 +63,9 @@ cd mod
 ```
 
 The jar lands at `mod/build/libs/aipilot-<version>.jar`.
+
+> Don't want to build it yourself? Grab the prebuilt jar from
+> [Releases](https://github.com/GlazeBlood/MC-Pilot/releases).
 
 > Fabric Loom downloads and remaps Minecraft on first run, so the first build takes a few minutes
 > and needs network access. Later builds are fast.
