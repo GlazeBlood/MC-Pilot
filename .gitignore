@@ -1,0 +1,32 @@
+# --- Gradle / Loom ---
+.gradle/
+build/
+out/
+run/
+remappedSrc/
+*.hprof
+hs_err_pid*.log
+replay_pid*.log
+
+# --- IDE ---
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+bin/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Local scratch / secrets ---
+# Never commit a bridge token or local machine paths.
+*.local
+*.log
+.env
+local.properties

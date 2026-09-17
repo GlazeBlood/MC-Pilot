@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "aipilot",
+  "version": "${version}",
+  "name": "AI Pilot",
+  "description": "Localhost HTTP bridge that lets an AI agent see the Minecraft client (screenshots), read game state, and inject keyboard/mouse/chat input. Binds to 127.0.0.1 only.",
+  "authors": [
+    "MCpilot contributors"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.aipilot.AiPilotClient"
+    ]
+  },
+  "mixins": [
+    "aipilot.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.20.6",
+    "java": ">=21"
+  }
+}

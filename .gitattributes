@@ -1,0 +1,15 @@
+# Normalise line endings so the repo is consistent across Windows/Linux.
+* text=auto eol=lf
+
+# Gradle wrapper must keep LF or it breaks on Linux/macOS and in CI.
+gradlew text eol=lf
+*.bat   text eol=crlf
+
+# Shell/PowerShell scripts
+*.sh    text eol=lf
+*.ps1   text eol=crlf
+
+# Binary — never touch
+*.jar   binary
+*.png   binary
+*.zip   binary

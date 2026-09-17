@@ -1,0 +1,33 @@
+plugins {
+    id 'fabric-loom' version '1.13.6'
+}
+
+version = '1.0.0'
+group = 'dev.aipilot'
+
+base {
+    archivesName = 'aipilot'
+}
+
+dependencies {
+    minecraft 'com.mojang:minecraft:1.20.6'
+    mappings 'net.fabricmc:yarn:1.20.6+build.3:v2'
+    modImplementation 'net.fabricmc:fabric-loader:0.16.14'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = 'UTF-8'
+    it.options.release = 21
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
+    }
+}
